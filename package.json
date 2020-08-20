@@ -1,0 +1,22 @@
+{
+    "name": "ipdv-app",
+    "version": "1.0.0",
+    "description": "Aplicação de code test para iPDV",
+    "main": "server.js",
+    "scripts": {
+        "start": "node server",
+        "server": "nodemon server"
+    },
+    "author": "André Masson",
+    "license": "MIT",
+    "devDependencies": {
+        "nodemon": "^2.0.4"
+    },
+    "dependencies": {
+        "config": "^3.3.1",
+        "express": "^4.17.1",
+        "express-validator": "^6.6.1",
+        "mariadb": "^2.4.2",
+        "sequelize": "^6.3.4"
+    }
+}

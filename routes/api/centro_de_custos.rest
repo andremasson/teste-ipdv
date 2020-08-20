@@ -1,0 +1,38 @@
+// Arquivo de teste de API
+// Extensão 'REST Client' para VSCode
+@url = localhost:5000
+@usuario = andre@masson.com
+@senha = 1234
+
+###
+// Retorna todos centros de custos
+GET http://{{url}}/api/centro_de_custos HTTP/1.1
+content-type: application/json
+
+###
+// Buscar ID específico
+GET http://{{url}}/api/centro_de_custos/abc1234 HTTP/1.1
+content-type: application/json
+
+###
+// Adicionar centro de custo
+POST http://{{url}}/api/centro_de_custos HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Controladoria"
+}
+
+###
+// Deletar centro de custo
+DELETE http://{{url}}/api/centro_de_custos/b174d7fb-4f4e-45aa-aad5-4f3e067b6f1a HTTP/1.1
+content-type: application/json
+
+###
+// Modifica centro de custo
+PUT http://{{url}}/api/centro_de_custos/8a359a62-ca16-4640-ad75-40a85da6d9ce HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Controladoria (Modificado)"
+}
