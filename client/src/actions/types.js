@@ -1,0 +1,24 @@
+export const ERROR = "ERROR";
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";
+
+export const USER_LOADED = "USER_LOADED";
+export const AUTH_ERROR = "AUTH_ERROR";
+
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
+
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
+export const LOGIN_FAIL = "LOGIN_FAIL";
+export const LOGOUT = "LOGOUT";
+
+export const ACCOUNT_DELETED = "ACCOUNT_DELETED";
+
+export const GET_CENTROS_DE_CUSTOS = "GET_CENTROS_DE_CUSTOS";
+export const GET_CENTRO_DE_CUSTO = "GET_CENTRO_DE_CUSTO";
+
+export const GET_CARGOS = "GET_CARGOS";
+export const GET_CARGO = "GET_CARGO";
+
+export const GET_DEPARTAMENTOS = "GET_DEPARTAMENTOS";
+export const GET_DEPARTAMENTO = "GET_DEPARTAMENTO";

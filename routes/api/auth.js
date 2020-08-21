@@ -50,9 +50,11 @@ router.post(
             console.log(usuario);
             if (!usuario) {
                 return res.status(400).json({
-                    errors: {
-                        message: "Credencial inválida",
-                    },
+                    errors: [
+                        {
+                            msg: "Credencial inválida",
+                        },
+                    ],
                 });
             }
 
@@ -60,9 +62,11 @@ router.post(
 
             if (!senhaIgual) {
                 return res.status(400).json({
-                    errors: {
-                        message: "Credencial inválida",
-                    },
+                    errors: [
+                        {
+                            msg: "Credencial inválida",
+                        },
+                    ],
                 });
             }
 
@@ -75,7 +79,7 @@ router.post(
             jwt.sign(
                 payload,
                 config.get("jwtSecret"),
-                {expiresIn: 360000},
+                {expiresIn: "1h"},
                 (err, token) => {
                     if (err) throw err;
 
@@ -89,4 +93,19 @@ router.post(
     }
 );
 
+// @route   DELETE api/auth
+// @desc    Retorna usuário logado
+// @access  Public
+router.delete("/", auth, async (req, res) => {
+    try {
+        const usuario = await Usuario.findByPk(req.usuario.id, {
+            attributes: {exclude: ["senha"]},
+        });
+
+        res.json(usuario);
+    } catch (error) {
+        console.error(error.message);
+        res.status(500).send("Erro de servidor");
+    }
+});
 module.exports = router;

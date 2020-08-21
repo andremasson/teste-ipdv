@@ -10,7 +10,9 @@ const {Departamento, CentroDeCusto} = require("../../models/sequelize");
 // @access  Private
 router.get("/", [auth], async (req, res) => {
     try {
-        const departamentos = await Departamento.findAll();
+        const departamentos = await Departamento.findAll({
+            include: CentroDeCusto,
+        });
         res.json(departamentos);
     } catch (error) {
         console.error(error.message);
