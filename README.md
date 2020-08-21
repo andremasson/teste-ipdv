@@ -13,10 +13,12 @@ Para acesso ao banco de dados foi usada a lib de ORM [`sequelize`](https://seque
 
 ## Banco de dados
 
-### `MySQL` ou `MariaDB`
+### `MySQL`
 
 Executar os scripts `db/01 - CreateSchema.sql` e `db/02 - ImportData.sql`.<br>
 Atualizar o arquivo `config/default.json` com as informações corretas para acesso ao banco de dados. (Trocar "dialect" de "mariadb" para "mysql2" se estiver usando MySQL)
+
+Veja o [`diagrama de entidades`](https://github.com/andremasson/teste-ipdv/blob/master/db/Diagrama%20de%20Entidades.pdf).
 
 ## Instalar dependências
 
