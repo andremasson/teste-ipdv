@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 const bcrypt = require("bcryptjs");
 const {v4: uuidv4} = require("uuid");
 const {check, validationResult} = require("express-validator");
@@ -7,10 +8,12 @@ const {Departamento, Cargo, Usuario} = require("../../models/sequelize");
 
 // @route   GET api/usuarios
 // @desc    Retorna todos os usuarios
-// @access  Public
-router.get("/", async (req, res) => {
+// @access  Private
+router.get("/", [auth], async (req, res) => {
     try {
-        const usuarios = await Usuario.findAll();
+        const usuarios = await Usuario.findAll({
+            attributes: {exclude: ["senha"]},
+        });
         res.json(usuarios);
     } catch (error) {
         console.error(error.message);
@@ -20,11 +23,12 @@ router.get("/", async (req, res) => {
 
 // @route   GET api/usuarios/:id
 // @desc    Retorna usuario especificado
-// @access  Public
-router.get("/:id", async (req, res) => {
+// @access  Private
+router.get("/:id", [auth], async (req, res) => {
     try {
         const usuario = await Usuario.findByPk(req.params.id, {
             include: [Cargo, Departamento],
+            attributes: {exclude: ["senha"]},
         });
         res.json(usuario);
     } catch (error) {
@@ -35,17 +39,20 @@ router.get("/:id", async (req, res) => {
 
 // @route   POST api/usuarios/
 // @desc    Adiciona usuario
-// @access  Public
+// @access  Private
 router.post(
     "/",
     [
-        check("nome", "Nome é obrigatório").not().isEmpty(),
-        check("email", "Email é obrigatório").not().isEmpty(),
-        check("senha", "Senha precisa ter mais de 6 caracteres").isLength({
-            min: 6,
-        }),
-        check("departamento", "Departamento é obrigatório").not().isEmpty(),
-        check("cargo", "Cargo é obrigatório").not().isEmpty(),
+        auth,
+        [
+            check("nome", "Nome é obrigatório").not().isEmpty(),
+            check("email", "Email é obrigatório").not().isEmpty(),
+            check("senha", "Senha precisa ter mais de 6 caracteres").isLength({
+                min: 6,
+            }),
+            check("departamento", "Departamento é obrigatório").not().isEmpty(),
+            check("cargo", "Cargo é obrigatório").not().isEmpty(),
+        ],
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -88,10 +95,12 @@ router.post(
 
 // @route   DELETE api/usuarios/:id
 // @desc    Deleta usuario especificado
-// @access  Public
-router.delete("/:id", async (req, res) => {
+// @access  Private
+router.delete("/:id", [auth], async (req, res) => {
     try {
-        const item = await Usuario.findByPk(req.params.id);
+        const item = await Usuario.findByPk(req.params.id, {
+            attributes: {exclude: ["senha"]},
+        });
         if (!item) {
             return res.status(404).json({msg: "Item não encontrado"});
         }
@@ -111,8 +120,8 @@ router.delete("/:id", async (req, res) => {
 
 // @route   PUT api/usuarios/:id
 // @desc    Atualiza usuario especificado
-// @access  Public
-router.put("/:id", async (req, res) => {
+// @access  Private
+router.put("/:id", [auth], async (req, res) => {
     try {
         const existente = await Usuario.findByPk(req.params.id);
 
@@ -147,6 +156,7 @@ router.put("/:id", async (req, res) => {
 
         const atualizado = await Usuario.findByPk(req.params.id, {
             include: [Cargo, Departamento],
+            attributes: {exclude: ["senha"]},
         });
 
         res.json(atualizado);

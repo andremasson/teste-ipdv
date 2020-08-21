@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 const {v4: uuidv4} = require("uuid");
 const {check, validationResult} = require("express-validator");
 const {CentroDeCusto, Departamento} = require("../../models/sequelize");
 
 // @route   GET api/centro_de_custos
 // @desc    Retorna todos os centros de custos
-// @access  Public
-router.get("/", async (req, res) => {
+// @access  Private
+router.get("/", [auth], async (req, res) => {
     try {
         const centroDeCustos = await CentroDeCusto.findAll();
         res.json(centroDeCustos);
@@ -19,8 +20,8 @@ router.get("/", async (req, res) => {
 
 // @route   GET api/centro_de_custos/:id
 // @desc    Retorna centro de custo especificado
-// @access  Public
-router.get("/:id", async (req, res) => {
+// @access  Private
+router.get("/:id", [auth], async (req, res) => {
     try {
         const centroDeCusto = await CentroDeCusto.findByPk(req.params.id, {
             include: Departamento,
@@ -34,10 +35,10 @@ router.get("/:id", async (req, res) => {
 
 // @route   POST api/centro_de_custos
 // @desc    Cria um centro de custo
-// @access  Public
+// @access  Private
 router.post(
     "/",
-    [check("nome", "Nome é obrigatório").not().isEmpty()],
+    [auth, [check("nome", "Nome é obrigatório").not().isEmpty()]],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -73,8 +74,8 @@ router.post(
 
 // @route   DELETE api/centro_de_custos/:id
 // @desc    Deleta um centro de custo
-// @access  Public
-router.delete("/:id", async (req, res) => {
+// @access  Private
+router.delete("/:id", [auth], async (req, res) => {
     try {
         const item = await CentroDeCusto.findByPk(req.params.id);
         if (!item) {
@@ -96,10 +97,10 @@ router.delete("/:id", async (req, res) => {
 
 // @route   PUT api/centro_de_custos/:id
 // @desc    Atualiza um centro de custo
-// @access  Public
+// @access  Private
 router.put(
     "/:id",
-    [check("nome", "Nome é obrigatório").not().isEmpty()],
+    [auth, [check("nome", "Nome é obrigatório").not().isEmpty()]],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

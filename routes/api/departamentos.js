@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 const {v4: uuidv4} = require("uuid");
 const {check, validationResult} = require("express-validator");
 const {Departamento, CentroDeCusto} = require("../../models/sequelize");
 
 // @route   GET api/departamentos
 // @desc    Retorna todos os departamentos
-// @access  Public
-router.get("/", async (req, res) => {
+// @access  Private
+router.get("/", [auth], async (req, res) => {
     try {
         const departamentos = await Departamento.findAll();
         res.json(departamentos);
@@ -19,8 +20,8 @@ router.get("/", async (req, res) => {
 
 // @route   GET api/departamentos/:id
 // @desc    Retorna departamentos especificado
-// @access  Public
-router.get("/:id", async (req, res) => {
+// @access  Private
+router.get("/:id", [auth], async (req, res) => {
     try {
         const departamentos = await Departamento.findByPk(req.params.id, {
             include: CentroDeCusto,
@@ -34,12 +35,17 @@ router.get("/:id", async (req, res) => {
 
 // @route   POST api/departamentos/
 // @desc    Adiciona departamento
-// @access  Public
+// @access  Private
 router.post(
     "/",
     [
-        check("nome", "Nome é obrigatório").not().isEmpty(),
-        check("centroDeCusto", "Centro de Custo é obrigatório").not().isEmpty(),
+        auth,
+        [
+            check("nome", "Nome é obrigatório").not().isEmpty(),
+            check("centroDeCusto", "Centro de Custo é obrigatório")
+                .not()
+                .isEmpty(),
+        ],
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -76,8 +82,8 @@ router.post(
 
 // @route   DELETE api/departamentos/:id
 // @desc    Deleta departamentos especificado
-// @access  Public
-router.delete("/:id", async (req, res) => {
+// @access  Private
+router.delete("/:id", [auth], async (req, res) => {
     try {
         const item = await Departamento.findByPk(req.params.id);
         if (!item) {
@@ -99,8 +105,8 @@ router.delete("/:id", async (req, res) => {
 
 // @route   PUT api/departamentos/:id
 // @desc    Atualiza departamentos especificado
-// @access  Public
-router.put("/:id", async (req, res) => {
+// @access  Private
+router.put("/:id", [auth], async (req, res) => {
     try {
         const existente = await Departamento.findByPk(req.params.id);
 

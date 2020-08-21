@@ -4,21 +4,25 @@
 @endpoint = centro_de_custos
 @usuario = luke@skywalker.com
 @senha = ab1234
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiZDYxY2E4ZWEtN2QxNy00OGJiLTk2ZjktMzZiZGMzZTY1N2QxIn0sImlhdCI6MTU5Nzk3NzExMCwiZXhwIjoxNTk4MzM3MTEwfQ.ZkI4_82Rs2zIa2LlhA2S_KAhFna0E1rxo-RUiNs4f-4
 
 ###
 // Retorna todos centros de custos
 GET http://{{url}}/api/{{endpoint}} HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Buscar ID específico
 GET http://{{url}}/api/{{endpoint}}/8a359a62-ca16-4640-ad75-40a85da6d9ce HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Adicionar centro de custo
 POST http://{{url}}/api/{{endpoint}} HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 {
     "nome": "Controladoria"
@@ -28,11 +32,13 @@ content-type: application/json
 // Deletar centro de custo
 DELETE http://{{url}}/api/{{endpoint}}/b174d7fb-4f4e-45aa-aad5-4f3e067b6f1a HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Modifica centro de custo
 PUT http://{{url}}/api/{{endpoint}}/8a359a62-ca16-4640-ad75-40a85da6d9ce HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 {
     "nome": "Controladoria (Modificado)"

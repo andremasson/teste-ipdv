@@ -1,0 +1,23 @@
+// Arquivo de teste de API
+// Extensão 'REST Client' para VSCode
+@url = localhost:5000
+@endpoint = auth
+@usuario = luke@skywalker.com
+@senha = ab1234
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiZDYxY2E4ZWEtN2QxNy00OGJiLTk2ZjktMzZiZGMzZTY1N2QxIn0sImlhdCI6MTU5Nzk3NzExMCwiZXhwIjoxNTk4MzM3MTEwfQ.ZkI4_82Rs2zIa2LlhA2S_KAhFna0E1rxo-RUiNs4f-4
+
+###
+// Pega usuário logado
+GET http://{{url}}/api/{{endpoint}} HTTP/1.1
+content-type: application/json
+x-auth-token: {{token}}
+
+###
+// Autentica e retorna token
+POST http://{{url}}/api/{{endpoint}} HTTP/1.1
+content-type: application/json
+
+{
+    "email": "{{usuario}}",
+    "senha": "{{senha}}"
+}

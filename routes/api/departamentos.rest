@@ -4,21 +4,25 @@
 @endpoint = departamentos
 @usuario = luke@skywalker.com
 @senha = ab1234
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiZDYxY2E4ZWEtN2QxNy00OGJiLTk2ZjktMzZiZGMzZTY1N2QxIn0sImlhdCI6MTU5Nzk3NzExMCwiZXhwIjoxNTk4MzM3MTEwfQ.ZkI4_82Rs2zIa2LlhA2S_KAhFna0E1rxo-RUiNs4f-4
 
 ###
 // Retorna todos departamentos
 GET http://{{url}}/api/departamentos HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Retorna departamento especificado
 GET http://{{url}}/api/{{endpoint}}/fc4b68f7-c9f8-456c-83c7-81bc5a19917c HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Adicionar departamento
 POST http://{{url}}/api/{{endpoint}} HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 {
     "nome": "Compras",
@@ -29,11 +33,13 @@ content-type: application/json
 // Deleta departamento especificado
 DELETE http://{{url}}/api/{{endpoint}}/db0049bd-4669-48be-ac94-b3ec3e9b95ff HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Alterar departamento
 PUT http://{{url}}/api/{{endpoint}}/fc4b68f7-c9f8-456c-83c7-81bc5a19917c HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 {
     "nome": "Vendas",

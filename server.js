@@ -4,6 +4,7 @@ const app = express();
 
 app.use(express.json({extended: false}));
 
+app.use("/api/auth", require("./routes/api/auth"));
 app.use("/api/centro_de_custos", require("./routes/api/centro_de_custos"));
 app.use("/api/cargos", require("./routes/api/cargos"));
 app.use("/api/departamentos", require("./routes/api/departamentos"));

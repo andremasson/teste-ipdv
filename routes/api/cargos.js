@@ -1,13 +1,14 @@
 const express = require("express");
 const router = express.Router();
+const auth = require("../../middleware/auth");
 const {v4: uuidv4} = require("uuid");
 const {check, validationResult} = require("express-validator");
 const {Cargo} = require("../../models/sequelize");
 
 // @route   GET api/cargos
 // @desc    Retorna todos os cargos
-// @access  Public
-router.get("/", async (req, res) => {
+// @access  Private
+router.get("/", [auth], async (req, res) => {
     try {
         const cargos = await Cargo.findAll();
         res.json(cargos);
@@ -19,8 +20,8 @@ router.get("/", async (req, res) => {
 
 // @route   GET api/cargos/:id
 // @desc    Retorna cargo especificado
-// @access  Public
-router.get("/:id", async (req, res) => {
+// @access  Private
+router.get("/:id", [auth], async (req, res) => {
     try {
         const cargo = await Cargo.findByPk(req.params.id);
         res.json(cargo);
@@ -32,10 +33,10 @@ router.get("/:id", async (req, res) => {
 
 // @route   POST api/cargos
 // @desc    Cria um cargo
-// @access  Public
+// @access  Private
 router.post(
     "/",
-    [check("nome", "Nome é obrigatório").not().isEmpty()],
+    [auth, [check("nome", "Nome é obrigatório").not().isEmpty()]],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -71,8 +72,8 @@ router.post(
 
 // @route   DELETE api/cargos
 // @desc    Deleta um cargo
-// @access  Public
-router.delete("/:id", async (req, res) => {
+// @access  Private
+router.delete("/:id", [auth], async (req, res) => {
     try {
         const item = await Cargo.findByPk(req.params.id);
         if (!item) {
@@ -92,12 +93,12 @@ router.delete("/:id", async (req, res) => {
     }
 });
 
-// @route   DELETE api/cargos
-// @desc    Deleta um cargo
-// @access  Public
+// @route   PUT api/cargos
+// @desc    Atualiza um cargo
+// @access  Private
 router.put(
     "/:id",
-    [check("nome", "Nome é obrigatório").not().isEmpty()],
+    [auth, [check("nome", "Nome é obrigatório").not().isEmpty()]],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {

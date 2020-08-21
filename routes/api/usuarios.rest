@@ -4,16 +4,19 @@
 @endpoint = usuarios
 @usuario = luke@skywalker.com
 @senha = ab1234
+@token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c3VhcmlvIjp7ImlkIjoiZDYxY2E4ZWEtN2QxNy00OGJiLTk2ZjktMzZiZGMzZTY1N2QxIn0sImlhdCI6MTU5Nzk3NzExMCwiZXhwIjoxNTk4MzM3MTEwfQ.ZkI4_82Rs2zIa2LlhA2S_KAhFna0E1rxo-RUiNs4f-4
 
 ###
 // Retorna todos usuarios
 GET http://{{url}}/api/{{endpoint}} HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 //  Busca usuario
 GET http://{{url}}/api/{{endpoint}}/d61ca8ea-7d17-48bb-96f9-36bdc3e657d1 HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Adicionar usuario
@@ -32,12 +35,14 @@ content-type: application/json
 //  Deletar usuario
 DELETE http://{{url}}/api/{{endpoint}}/cdb36378-ed9a-4436-9d1e-4ac61df881e0 HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 ###
 // Atualiza usuario
 PUT http://{{url}}/api/{{endpoint}}/d61ca8ea-7d17-48bb-96f9-36bdc3e657d1 HTTP/1.1
 content-type: application/json
+x-auth-token: {{token}}
 
 {
-    "nome": "Luke Skywalker",
+    "senha": "{{senha}}"
 }
