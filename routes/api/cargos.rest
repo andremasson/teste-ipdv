@@ -1,22 +1,23 @@
 // Arquivo de teste de API
 // Extensão 'REST Client' para VSCode
 @url = localhost:5000
-@usuario = andre@masson.com
-@senha = 1234
+@endpoint = cargos
+@usuario = luke@skywalker.com
+@senha = ab1234
 
 ###
 // Retorna todos cargos
-GET http://{{url}}/api/cargos HTTP/1.1
+GET http://{{url}}/api/{{endpoint}} HTTP/1.1
 content-type: application/json
 
 ###
 //  Busca cargo
-GET http://{{url}}/api/cargos/76975805-0813-4d68-ad93-815613ebfa51 HTTP/1.1
+GET http://{{url}}/api/{{endpoint}}/76975805-0813-4d68-ad93-815613ebfa51 HTTP/1.1
 content-type: application/json
 
 ###
 // Adicionar cargo
-POST http://{{url}}/api/cargos HTTP/1.1
+POST http://{{url}}/api/{{endpoint}} HTTP/1.1
 content-type: application/json
 
 {
@@ -25,14 +26,14 @@ content-type: application/json
 
 ###
 //  Deletar cargo
-DELETE http://{{url}}/api/cargos/bed469d2-1d13-40dc-afb1-9ec2bcfd717e HTTP/1.1
+DELETE http://{{url}}/api/{{endpoint}}/bed469d2-1d13-40dc-afb1-9ec2bcfd717e HTTP/1.1
 content-type: application/json
 
 ###
 // Atualiza cargo
-PUT http://{{url}}/api/cargos/fd29559f-6064-4e91-a36d-0e58dc0ee0fb HTTP/1.1
+PUT http://{{url}}/api/{{endpoint}}/fd29559f-6064-4e91-a36d-0e58dc0ee0fb HTTP/1.1
 content-type: application/json
 
 {
-    "nome": "CEO"
+    "nome": "CEO, B****"
 }

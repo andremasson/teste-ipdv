@@ -1,0 +1,41 @@
+// Arquivo de teste de API
+// Extensão 'REST Client' para VSCode
+@url = localhost:5000
+@endpoint = departamentos
+@usuario = luke@skywalker.com
+@senha = ab1234
+
+###
+// Retorna todos departamentos
+GET http://{{url}}/api/departamentos HTTP/1.1
+content-type: application/json
+
+###
+// Retorna departamento especificado
+GET http://{{url}}/api/{{endpoint}}/fc4b68f7-c9f8-456c-83c7-81bc5a19917c HTTP/1.1
+content-type: application/json
+
+###
+// Adicionar departamento
+POST http://{{url}}/api/{{endpoint}} HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Compras",
+    "centroDeCusto": "8a359a62-ca16-4640-ad75-40a85da6d9ce"
+}
+
+###
+// Deleta departamento especificado
+DELETE http://{{url}}/api/{{endpoint}}/db0049bd-4669-48be-ac94-b3ec3e9b95ff HTTP/1.1
+content-type: application/json
+
+###
+// Alterar departamento
+PUT http://{{url}}/api/{{endpoint}}/fc4b68f7-c9f8-456c-83c7-81bc5a19917c HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Vendas",
+    "centroDeCusto": "8a359a62-ca16-4640-ad75-40a85da6d9ce"
+}

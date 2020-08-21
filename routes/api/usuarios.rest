@@ -1,0 +1,43 @@
+// Arquivo de teste de API
+// Extensão 'REST Client' para VSCode
+@url = localhost:5000
+@endpoint = usuarios
+@usuario = luke@skywalker.com
+@senha = ab1234
+
+###
+// Retorna todos usuarios
+GET http://{{url}}/api/{{endpoint}} HTTP/1.1
+content-type: application/json
+
+###
+//  Busca usuario
+GET http://{{url}}/api/{{endpoint}}/d61ca8ea-7d17-48bb-96f9-36bdc3e657d1 HTTP/1.1
+content-type: application/json
+
+###
+// Adicionar usuario
+POST http://{{url}}/api/{{endpoint}} HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Luke",
+    "email": "{{usuario}}",
+    "senha": "{{senha}}",
+    "departamento": "2f27fbb0-1f0f-4220-9369-42b6373a520b",
+    "cargo": "76975805-0813-4d68-ad93-815613ebfa51"
+}
+
+###
+//  Deletar usuario
+DELETE http://{{url}}/api/{{endpoint}}/cdb36378-ed9a-4436-9d1e-4ac61df881e0 HTTP/1.1
+content-type: application/json
+
+###
+// Atualiza usuario
+PUT http://{{url}}/api/{{endpoint}}/d61ca8ea-7d17-48bb-96f9-36bdc3e657d1 HTTP/1.1
+content-type: application/json
+
+{
+    "nome": "Luke Skywalker",
+}

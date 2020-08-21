@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {v4: uuidv4} = require("uuid");
 const {check, validationResult} = require("express-validator");
-const CentroDeCusto = require("../../models/CentroDeCusto");
+const {CentroDeCusto, Departamento} = require("../../models/sequelize");
 
 // @route   GET api/centro_de_custos
 // @desc    Retorna todos os centros de custos
@@ -22,7 +22,9 @@ router.get("/", async (req, res) => {
 // @access  Public
 router.get("/:id", async (req, res) => {
     try {
-        const centroDeCusto = await CentroDeCusto.findByPk(req.params.id);
+        const centroDeCusto = await CentroDeCusto.findByPk(req.params.id, {
+            include: Departamento,
+        });
         res.json(centroDeCusto);
     } catch (error) {
         console.error(error.message);

@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const {v4: uuidv4} = require("uuid");
 const {check, validationResult} = require("express-validator");
-const Cargo = require("../../models/Cargo");
+const {Cargo} = require("../../models/sequelize");
 
 // @route   GET api/cargos
 // @desc    Retorna todos os cargos
