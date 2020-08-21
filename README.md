@@ -35,6 +35,29 @@ npm run dev
 ```
 
 A aplicação poderá ser acessada em `http://localhost:3000`
+O backend estará rodando em `http://localhost:3000/api` com os endpoints:
+
+```
+/auth
+/centro_de_custos
+/cargos
+/departamentos
+/usuarios
+```
+
+Exemplo para autenticação:
+
+```
+POST http://http://localhost:3000/api/auth HTTP/1.1
+content-type: application/json
+
+{
+    "email": "luke@skywalker.com",
+    "senha": "ab1234"
+}
+```
+
+Mais exemplos no diretório `routes/api`. (Arquivos com extensão .rest)
 
 ## Licença
 
